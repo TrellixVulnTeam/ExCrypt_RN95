@@ -54,7 +54,11 @@ def AES_dir_encrypt(source_path, key, remove_int=True):
 
 
 def AES_dir_decrypt(source_path, key, remove_int=True):
-    with open(source_path + ".aes", 'rb') as aes:
+    aes_file = source_path + ".aes"
+    if ".aes" in source_path: 
+        aes_file = source_path
+        
+    with open(aes_file, 'rb') as aes:
         tar_file = AES_decrypt(aes.read(), key)
 
     with open(source_path + ".tar", 'wb') as tar:
@@ -64,8 +68,9 @@ def AES_dir_decrypt(source_path, key, remove_int=True):
     
     if remove_int:
         os.remove(source_path + ".tar")
-
-
+        
+        
 if __name__ == "__main__":
-    AES_dir_encrypt("example", "hi")
+    pass
+    #AES_dir_encrypt("example", "hi")
     #AES_dir_decrypt("example", "hi")

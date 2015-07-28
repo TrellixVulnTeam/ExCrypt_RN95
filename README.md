@@ -8,4 +8,5 @@ Install AES (python script):
 
 **To-do**
 
-- GUI
+- Create pop-up window for key
+- Work for folders and files
