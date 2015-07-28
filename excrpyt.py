@@ -28,6 +28,7 @@ def AES_encrypt(raw, key):
     key = pad(16, key)
     iv = Random.new().read(AES.block_size)
     cipher = AES.new(key, AES.MODE_CBC, iv)
+    
     return iv + cipher.encrypt(raw)
 
 
@@ -35,10 +36,11 @@ def AES_decrypt(ciphertext, key):
     key = pad(16, key)
     iv = ciphertext[:16]
     cipher = AES.new(key, AES.MODE_CBC, iv)
+    
     return unpad(cipher.decrypt(ciphertext[16:]))
 
 
-def AES_dir_encrypt(source_path, key):
+def AES_dir_encrypt(source_path, key, remove_int=True):
     create_tar(source_path, source_path + ".tar")
 
     with open(source_path + ".tar", 'r') as tar:
@@ -47,10 +49,11 @@ def AES_dir_encrypt(source_path, key):
     with open(source_path + ".aes", 'wb') as aes:
         aes.write(AES_encrypt(raw, key))
 
-    # Delete .tar?
+    if remove_int:
+        os.remove(source_path + ".tar")
 
 
-def AES_dir_decrypt(source_path, key):
+def AES_dir_decrypt(source_path, key, remove_int=True):
     with open(source_path + ".aes", 'rb') as aes:
         tar_file = AES_decrypt(aes.read(), key)
 
@@ -58,8 +61,11 @@ def AES_dir_decrypt(source_path, key):
         tar.write(tar_file)
 
     extract_tar(source_path + ".tar", '.')
+    
+    if remove_int:
+        os.remove(source_path + ".tar")
 
 
 if __name__ == "__main__":
-    #AES_dir_encrypt("example", "hi")
-    AES_dir_decrypt("example", "hi")
+    AES_dir_encrypt("example", "hi")
+    #AES_dir_decrypt("example", "hi")
