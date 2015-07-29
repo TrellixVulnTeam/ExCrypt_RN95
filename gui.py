@@ -1,6 +1,8 @@
 from tkinter import *
 import tkinter.filedialog as tkFileDialog
 import excrypt
+import winsound
+import os
 
 
 class Window(Frame):
@@ -24,6 +26,7 @@ class Window(Frame):
         #browse_button = Button(self, text="Browse", command=self.askopenfilename, width=10)
         #browse_button.grid(row=0, column=0)
         
+
     def center_window(self):
         w, h = 250, 100
         sw = self.parent.winfo_screenwidth()

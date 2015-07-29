@@ -1,5 +1,4 @@
 # Main file
-
 import tarfile, os
 from Crypto.Cipher import AES
 from Crypto import Random
