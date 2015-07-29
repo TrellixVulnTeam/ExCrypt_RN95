@@ -14,5 +14,19 @@ Encrypts folders and files with AES.
 
 ##To-do
 
-- Create pop-up window for key
 - Work for folders and files
+- Status messages in GUI
+
+##Version History 
+
+- v0.2.1 
+    - Disable resize
+	- New version variable
+
+- v0.2.0
+    - GUI added
+	- Encrypt/decrypt buttons 
+	- Key entry 
+	- New music
+- v0.1 
+	- Basic AES/tar functions 

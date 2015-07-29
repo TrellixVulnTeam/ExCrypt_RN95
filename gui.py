@@ -4,6 +4,8 @@ import excrypt
 import winsound
 import os
 
+__version__ = "0.2.1"
+
 
 class mainWindow(Frame):
     def __init__(self, parent):
@@ -12,7 +14,7 @@ class mainWindow(Frame):
         self.init_ui()
         
     def init_ui(self):
-        self.parent.title("ExCrypt v0.2")
+        self.parent.title("ExCrypt v" + __version__)
         self.pack(fill=BOTH, expand=1)
         self.center_window()
         
@@ -59,6 +61,7 @@ class mainWindow(Frame):
 
 def main(): 
     root = Tk()
+    root.resizable(0,0)
     app = mainWindow(root)
     root.mainloop()
 
