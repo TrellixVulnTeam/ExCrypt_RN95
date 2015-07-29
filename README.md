@@ -1,12 +1,18 @@
 ExCrypt
 =======
-Encrypts folders and files with AES
+Encrypts folders and files with AES.
 
-Install AES (python script):
+##Requirements for script:
 
-`pip install pycrypto` (Visual C++ 2010 required)
+- Visual C++ 2010
+- Python 3
 
-**To-do**
+
+###Install AES:
+
+`pip install pycrypto`
+
+##To-do
 
 - Create pop-up window for key
 - Work for folders and files
