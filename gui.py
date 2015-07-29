@@ -7,7 +7,7 @@ import os
 __version__ = "0.2.1"
 
 
-class mainWindow(Frame):
+class Window(Frame):
     def __init__(self, parent):
         Frame.__init__(self, parent)
         self.parent = parent
@@ -61,8 +61,11 @@ class mainWindow(Frame):
 
 def main(): 
     root = Tk()
+
     root.resizable(0,0)
-    app = mainWindow(root)
+    root.iconbitmap(r'lock-yellow.ico')
+
+    app = Window(root)
     root.mainloop()
 
 main()
