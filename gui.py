@@ -5,30 +5,35 @@ import winsound
 import os
 
 
-class Window(Frame):
+class mainWindow(Frame):
     def __init__(self, parent):
         Frame.__init__(self, parent)
         self.parent = parent
         self.init_ui()
         
     def init_ui(self):
-        self.parent.title("ExCrypt v0.1")
+        self.parent.title("ExCrypt v0.2")
         self.pack(fill=BOTH, expand=1)
         self.center_window()
-        #root.geometry("250x250+300+300")
         
-        encrypt_button = Button(self, text="Encrypt dir", command=self.encrypt_file, width=10)
-        encrypt_button.grid(row=0, column=0)
+        encryptButton = Button(self, text="Encrypt dir", command=self.encrypt_file, width=10)
+        encryptButton.grid(row=0, column=2, padx=5, pady=2)
         
-        decrypt_button = Button(self, text="Decrypt dir", command=self.decrypt_file, width=10)
-        decrypt_button.grid(row=1, column=0)
+        decryptButton = Button(self, text="Decrypt dir", command=self.decrypt_file, width=10)
+        decryptButton.grid(row=1, column=2, padx=5)
         
-        #browse_button = Button(self, text="Browse", command=self.askopenfilename, width=10)
-        #browse_button.grid(row=0, column=0)
-        
+        entryField = Entry(self, width=20)
+        entryField.grid(row=0, column=1)
+        self.key = entryField.get()
+
+        keyText = Label(self, text="Key: ").grid(row=0, column=0)
+
+        musicButton = Button(self,  text="Play music", command=self.play_music)
+        musicButton.grid(row=1, column=1)
+
 
     def center_window(self):
-        w, h = 250, 100
+        w, h = 250, 70
         sw = self.parent.winfo_screenwidth()
         sh = self.parent.winfo_screenheight()
         x = (sw - w)//2
@@ -38,19 +43,23 @@ class Window(Frame):
         
     def encrypt_file(self):
         source_path = tkFileDialog.askdirectory()
-        key = "hi"  # Until create popup window
-        excrypt.AES_dir_encrypt(source_path, key)
+        print(source_path)
+        excrypt.AES_dir_encrypt(source_path, self.key)
         print("Encrypted")
         
     def decrypt_file(self):
         source_path = tkFileDialog.askopenfilename()
-        key = "hi"
-        excrypt.AES_dir_decrypt(source_path, key)
+        print(source_path)
+        excrypt.AES_dir_decrypt(source_path, self.key)
         print("Decrypted")
+
+    def play_music(self):
+        winsound.PlaySound("amstrad_memories.wav", winsound.SND_LOOP | winsound.SND_ASYNC)
+        
 
 def main(): 
     root = Tk()
-    app = Window(root)
+    app = mainWindow(root)
     root.mainloop()
 
 main()
