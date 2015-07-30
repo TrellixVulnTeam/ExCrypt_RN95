@@ -4,7 +4,7 @@ import excrypt
 import winsound
 import os
 
-__version__ = "0.2.2"
+__version__ = "0.3"
 
 
 class Window(Frame):
@@ -18,45 +18,69 @@ class Window(Frame):
         self.pack(fill=BOTH, expand=1)
         self.center_window()
         
-        encryptButton = Button(self, text="Encrypt dir", command=self.encrypt_dir, width=10)
-        encryptButton.grid(row=0, column=2, padx=5, pady=2)
+        encryptDirButton = Button(self, text="Encrypt dir", command=self.encrypt_dir, width=12)
+        encryptDirButton.grid(row=0, column=2, padx=5, pady=2)
+
+        encryptFileButton = Button(self, text="Encrypt file", command=self.encrypt_file, width=12)
+        encryptFileButton.grid(row=1, column=2, padx=5)
         
-        decryptButton = Button(self, text="Decrypt dir", command=self.decrypt_file, width=10)
-        decryptButton.grid(row=1, column=2, padx=5)
+        decryptButton = Button(self, text="Decrypt dir/file", command=self.decrypt_file, width=12)
+        decryptButton.grid(row=2, column=2, padx=5)
         
-        entryField = Entry(self, width=20)
-        entryField.grid(row=0, column=1)
-        self.key = entryField.get()
+        self.entryField = Entry(self, width=20)
+        self.entryField.grid(row=0, column=1)
 
         keyText = Label(self, text="Key: ").grid(row=0, column=0)
 
         musicButton = Button(self,  text="Play music", command=self.play_music)
-        musicButton.grid(row=1, column=1)
+        musicButton.grid(row=2, column=1)
 
 
     def center_window(self):
-        w, h = 250, 70
+        w, h = 260, 90
         sw = self.parent.winfo_screenwidth()
         sh = self.parent.winfo_screenheight()
         x = (sw - w)//2
         y = (sh - h)//2
         
         self.parent.geometry("%dx%d+%d+%d" % (w, h, x, y))
-        
+
+
     def encrypt_dir(self):
         source_path = tkFileDialog.askdirectory()
         print(source_path)
+        self.get_entry()
         excrypt.AES_dir_encrypt(source_path, self.key)
-        print("Encrypted")
+
+        print("Encrypted dir")
+
+
+    def encrypt_file(self):
+        source_path = tkFileDialog.askopenfilename()
+        print(source_path)
+        self.get_entry()
+        excrypt.AES_dir_encrypt(source_path, self.key)
+
+        print("Encrypted file")
+
         
     def decrypt_file(self):
         source_path = tkFileDialog.askopenfilename()
         print(source_path)
+        self.get_entry()
         excrypt.AES_dir_decrypt(source_path, self.key)
+
         print("Decrypted")
+
 
     def play_music(self):
         winsound.PlaySound("amstrad_memories.wav", winsound.SND_LOOP | winsound.SND_ASYNC)
+
+
+    def get_entry(self):
+        self.key = self.entryField.get()
+        if not self.key:
+            print("No key entered!")
         
 
 def main(): 
