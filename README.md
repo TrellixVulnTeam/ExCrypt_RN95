@@ -16,9 +16,12 @@ Encrypts folders and files with AES.
 
 - Work for folders and files
 - Status messages in GUI
-- Work with large files
+- Work with large files (data, including `raw`, is limited to python's memory)
 
 ##Version History 
+
+- v0.2.2
+	- Reading/writing mode clarification
 
 - v0.2.1 
 	- Byte encoding bugfix

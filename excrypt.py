@@ -45,11 +45,11 @@ def AES_decrypt(ciphertext, key):
 def AES_dir_encrypt(source_path, key, remove_int=True):
     create_tar(source_path, source_path + ".tar")
 
-    with open(source_path + ".tar", 'rb') as tar:
-        raw = tar.read()
+    with open(source_path + ".tar", 'rb') as f:
+        raw = f.read()
 
-    with open(source_path + ".aes", 'wb') as aes:
-        aes.write(AES_encrypt(raw, key))
+    with open(source_path + ".aes", 'wb') as f:
+        f.write(AES_encrypt(raw, key))
 
     if remove_int:
         os.remove(source_path + ".tar")
@@ -61,11 +61,11 @@ def AES_dir_decrypt(source_path, key, remove_int=True):
         aes_path = source_path + ".aes"
 
         
-    with open(aes_path, 'rb') as aes:
-        tar_file = AES_decrypt(aes.read(), key)
+    with open(aes_path, 'rb') as f:
+        tar_file = AES_decrypt(f.read(), key)
 
-    with open(source_path + ".tar", 'wb') as tar:
-        tar.write(tar_file)
+    with open(source_path + ".tar", 'wb') as f:
+        f.write(tar_file)
 
     extract_tar(source_path + ".tar", os.path.join(source_path, ".."))
     
