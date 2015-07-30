@@ -18,7 +18,7 @@ class Window(Frame):
         self.pack(fill=BOTH, expand=1)
         self.center_window()
         
-        encryptButton = Button(self, text="Encrypt dir", command=self.encrypt_file, width=10)
+        encryptButton = Button(self, text="Encrypt dir", command=self.encrypt_dir, width=10)
         encryptButton.grid(row=0, column=2, padx=5, pady=2)
         
         decryptButton = Button(self, text="Decrypt dir", command=self.decrypt_file, width=10)
@@ -43,7 +43,7 @@ class Window(Frame):
         
         self.parent.geometry("%dx%d+%d+%d" % (w, h, x, y))
         
-    def encrypt_file(self):
+    def encrypt_dir(self):
         source_path = tkFileDialog.askdirectory()
         print(source_path)
         excrypt.AES_dir_encrypt(source_path, self.key)
