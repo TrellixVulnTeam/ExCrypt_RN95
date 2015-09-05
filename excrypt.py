@@ -54,16 +54,16 @@ def AES_dir_encrypt(source_path, key, remove_int=True):
     file_num = 0
 
     while True:
-        r = ft.read(BLOCK_SIZE)
-        if not r:
+        block = ft.read(BLOCK_SIZE)
+        if not block:
             break
 
-        
+        with open(source_path + ".aes" + str(file_num), 'wb') as f:
+            print("Writing file", file_num)
+            f.write(AES_encrypt(block, key))
+      
         file_num += 1
-
-    print(file_num)
-
-
+        
     ft.close()
         
     
