@@ -5,13 +5,16 @@ from Crypto import Random
 
 
 def create_tar(source_path, output_path):
-    with tarfile.open(output_path, 'w') as tar:
+    with tarfile.open(output_path, 'w|') as tar:
         tar.add(source_path, arcname=os.path.basename(source_path))
 
 
 def extract_tar(source_path, output_path):
-    with tarfile.open(source_path, 'r') as tar:
-        tar.extractall(path=output_path)
+    try:
+        with tarfile.open(source_path, 'r|') as tar:
+            tar.extractall(path=output_path)
+    except:
+        print("Tar read error. Wrong key?")
 
 
 def pad(bs, s):
@@ -45,6 +48,25 @@ def AES_decrypt(ciphertext, key):
 def AES_dir_encrypt(source_path, key, remove_int=True):
     create_tar(source_path, source_path + ".tar")
 
+    # Split files and write blocks
+    ft = open(source_path + ".tar", 'rb')
+    BLOCK_SIZE = 2048
+    file_num = 0
+
+    while True:
+        r = ft.read(BLOCK_SIZE)
+        if not r:
+            break
+
+        
+        file_num += 1
+
+    print(file_num)
+
+
+    ft.close()
+        
+    
     with open(source_path + ".tar", 'rb') as f:
         raw = f.read()
 

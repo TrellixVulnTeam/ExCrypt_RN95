@@ -4,7 +4,7 @@ import excrypt
 import winsound
 import os
 
-__version__ = "0.3"
+__version__ = "0.4"
 
 
 class Window(Frame):
@@ -70,7 +70,7 @@ class Window(Frame):
         self.get_entry()
         excrypt.AES_dir_decrypt(source_path, self.key)
 
-        print("Decrypted")
+        print("Decrypt finished")
 
 
     def play_music(self):

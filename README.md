@@ -4,20 +4,22 @@ Encrypts folders and files with AES.
 
 ##Requirements for script:
 
-- Visual C++ 2010
+- Visual C++ 2010 (manual installation)
 - Python 3
 
 
 ###Install AES:
 
-`pip install pycrypto`
+`pip install pycrypto` or use a [windows installer](https://github.com/axper/python3-pycrypto-windows-installer). 
 
 ##To-do
 
 - Status messages in GUI
-- Work with large files (data, including `raw`, is limited to python's memory)
 
 ##Version History 
+- v0.4
+	- Installation note
+	- Wrong key error message
 
 - v0.3
 	- Reading/writing mode clarification
