@@ -81,15 +81,22 @@ class Window(Frame):
         self.key = self.entryField.get()
         if not self.key:
             print("No key entered!")
+
+
+def tester():
+    excrypt.AES_dir_encrypt("example", "")
         
 
 def main(): 
     root = Tk()
+    tester()
 
     root.resizable(0,0)
     root.iconbitmap(r'lock-yellow.ico')
 
     app = Window(root)
     root.mainloop()
+
+    
 
 main()

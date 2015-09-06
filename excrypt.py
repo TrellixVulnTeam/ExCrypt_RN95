@@ -48,49 +48,47 @@ def AES_decrypt(ciphertext, key):
 def AES_dir_encrypt(source_path, key, remove_int=True):
     create_tar(source_path, source_path + ".tar")
 
-    # Split files and write blocks
+    # Split files and write AES blocks
     ft = open(source_path + ".tar", 'rb')
     BLOCK_SIZE = 2048
-    file_num = 0
 
-    while True:
-        block = ft.read(BLOCK_SIZE)
-        if not block:
-            break
+    with open(source_path + ".ab", 'wb') as f:  # .ab = AES blocks
+        while True:
+            block = ft.read(BLOCK_SIZE)
+            print(block)
+            if not block:
+                break
 
-        with open(source_path + ".aes" + str(file_num), 'wb') as f:
-            print("Writing file", file_num)
             f.write(AES_encrypt(block, key))
-      
-        file_num += 1
         
     ft.close()
-        
-    
-    with open(source_path + ".tar", 'rb') as f:
-        raw = f.read()
-
-    with open(source_path + ".aes", 'wb') as f:
-        f.write(AES_encrypt(raw, key))
-
+    return
     if remove_int:
         os.remove(source_path + ".tar")
 
 
 def AES_dir_decrypt(source_path, key, remove_int=True):
-    aes_path = source_path
-    if ".aes" not in source_path:
-        aes_path = source_path + ".aes"
+    if source_path[-3:] == ".ab":
+        source_path = source_path[:-3]
 
+    # Decrypt AES blocks and combine together
+    fab = open(source_path + ".ab", 'rb')
+    BLOCK_SIZE = 2048
         
-    with open(aes_path, 'rb') as f:
-        tar_file = AES_decrypt(f.read(), key)
-
     with open(source_path + ".tar", 'wb') as f:
-        f.write(tar_file)
+        while True:
+            block = fab.read(BLOCK_SIZE)
+            #print(block)
+            if not block:
+                break
+
+            f.write(AES_decrypt(block, key))
+
+    fab.close()
+
 
     extract_tar(source_path + ".tar", os.path.join(source_path, ".."))
-    
+    return
     if remove_int:
         os.remove(source_path + ".tar")
 
